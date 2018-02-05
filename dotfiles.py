@@ -4,13 +4,26 @@ from src.manager import Manager
 import argparse
 import os
 
-cwd = os.getcwd()
-source_dir = os.path.join(cwd, 'files')
-target_dir = os.getenv('HOME')
+home = os.getenv('HOME')
+default_source = os.path.join(home, '.dotfiles')
+default_target = home
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Manage your dotfiles')
+    parser.add_argument(
+        '--source',
+        nargs='?',
+        default=default_source,
+        help='The source directory to use'
+    )
+    parser.add_argument(
+        '--home',
+        nargs='?',
+        default=default_target,
+        help='Your home directory'
+    )
+
     subparsers = parser.add_subparsers(title='subcommand')
 
     add_parser = subparsers.add_parser(
@@ -32,16 +45,6 @@ if __name__ == "__main__":
     )
     deploy_parser.set_defaults(func=deploy)
 
-    # parser.add_argument(
-    #     'file',
-    #     nargs='?',
-    #     default='dotfiles.json',
-    #     help='Your dotfiles manifest file.',
-    #     type=argparse.FileType('r')
-    # )
-    # parser.add_argument('-a', '--add', nargs='+')
-    # parser.add_argument('-d', '--delete', nargs='+')
-
     args = parser.parse_args()
-    manager = Manager(source_dir, target_dir)
+    manager = Manager(args.source, args.home)
     args.func(manager, args)
