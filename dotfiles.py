@@ -46,5 +46,10 @@ if __name__ == "__main__":
     deploy_parser.set_defaults(func=deploy)
 
     args = parser.parse_args()
-    manager = Manager(args.source, args.home)
-    args.func(manager, args)
+
+    if hasattr(args, 'func'):
+        manager = Manager(args.source, args.home)
+        args.func(manager, args)
+    else:
+        parser.print_help()
+        exit(1)
