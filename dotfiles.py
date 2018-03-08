@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from src.commands import add, deploy
-from src.manager import Manager
+from dot.commands import add, deploy
+from dot.manager import Manager
 import argparse
 import os
 
