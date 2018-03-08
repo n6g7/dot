@@ -8,7 +8,7 @@ A dotfiles manager.
 
 ## Usage
 
-### Link files in `~/.dotfiles`
+### Link files
 
 Creates symbolic links from `~/.dotfiles/*` to `~/.*`.
 ```sh
