@@ -1,4 +1,4 @@
-from src.print import print_line
+from ..print import print_line
 
 
 def add(manager, args):

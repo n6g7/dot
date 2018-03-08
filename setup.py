@@ -16,6 +16,9 @@ setup(
     keywords='dotfiles manager dot',
     url='https://github.com/n6g7/dot',
     license='MIT',
-    packages=['dot'],
+    packages=[
+        'dot',
+        'dot.commands',
+    ],
     scripts=['bin/dot']
 )

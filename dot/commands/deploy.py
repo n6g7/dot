@@ -1,5 +1,5 @@
-from src.print import print_line
-from src.state import State
+from ..print import print_line
+from ..state import State
 
 
 def print_section(files, text, show_files=True, level=0):
