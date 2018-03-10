@@ -22,3 +22,22 @@ def print_line(message, *args, level=0, **kwargs):
         indent='   ' * level,
         message=message.format(*args, **kwargs)
     ))
+
+
+def print_section(files, text, show_files=True, level=0):
+    if len(files) == 0:
+        return
+
+    print_line(
+        text,
+        count=len(files),
+        level=level
+    )
+
+    if show_files:
+        for file in files:
+            print_line(
+                '     - {file:blue}',
+                file=file,
+                level=level
+            )

@@ -1,24 +1,5 @@
-from ..print import print_line
+from ..print import print_line, print_section
 from ..state import State
-
-
-def print_section(files, text, show_files=True, level=0):
-    if len(files) == 0:
-        return
-
-    print_line(
-        text,
-        count=len(files),
-        level=level
-    )
-
-    if show_files:
-        for file in files:
-            print_line(
-                '     - {file:blue}',
-                file=file,
-                level=level
-            )
 
 
 def link_sources(manager, sources):
