@@ -20,5 +20,8 @@ setup(
         'dot',
         'dot.commands',
     ],
-    scripts=['bin/dot']
+    scripts=['bin/dot'],
+    install_requires=[
+        'crayons',
+    ]
 )
