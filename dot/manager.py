@@ -1,8 +1,13 @@
 from .state import State
 import os
+import re
 
 
 class Manager(object):
+    ignored_files = (
+        re.compile(r'\.git'),
+    )
+
     def __init__(self, source_dir, target_dir):
         self.source_dir = source_dir
         self.target_dir = target_dir
@@ -29,12 +34,22 @@ class Manager(object):
 
         return os.path.join(self.source_dir, target[1:])
 
+    def should_ignore(self, path):
+        """Decides whether a file/directory should be ignored by dot."""
+        return any([
+            regexp.search(path)
+            for regexp in self.ignored_files
+        ])
+
     def walk(self, with_target=True):
         """Iterates over all (source file) -> (target link) mappings."""
 
         for (dirpath, _, filenames) in os.walk(self.source_dir):
             for filename in filenames:
                 source = os.path.join(dirpath, filename)
+
+                if self.should_ignore(source):
+                    continue
 
                 if with_target:
                     yield (source, self.target(source))
