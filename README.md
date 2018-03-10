@@ -25,5 +25,6 @@ $ dot add ~/.my.dotfile
 ## Development
 
 - Create virtual env: `pipenv --python 3.6 && pipenv shell`
-- Install package: `pip install --upgrade .`
+- Install package: `pip install -e .`
 - Run: `dot -h`
+- Publish: `python setup.py register sdist upload`
