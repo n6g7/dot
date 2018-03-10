@@ -21,3 +21,9 @@ Copies `~/.my.dotfile` to `~/.dotfiles/my.dotfile` and creates a symbolic link f
 ```sh
 $ dot add ~/.my.dotfile
 ```
+
+## Development
+
+- Create virtual env: `pipenv --python 3.6 && pipenv shell`
+- Install package: `pip install --upgrade .`
+- Run: `dot -h`
