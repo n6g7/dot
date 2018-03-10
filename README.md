@@ -8,6 +8,13 @@ A dotfiles manager.
 
 ## Usage
 
+### Status
+
+See status of all source files
+```sh
+$ dot status
+```
+
 ### Link files
 
 Creates symbolic links from `~/.dotfiles/*` to `~/.*`.
