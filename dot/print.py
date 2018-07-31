@@ -8,7 +8,9 @@ class ColouredString(object):
     def __format__(self, format):
         if format == '':
             return self.string
-        return str(getattr(crayons, format)(self.string))
+        # Small hack to always return a string, even when not in a tty
+        a = getattr(crayons, format)(self.string)
+        return str(a.color_str)
 
 
 def print_line(message, *args, level=0, **kwargs):
