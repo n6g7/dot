@@ -1,12 +1,11 @@
-from .state import State
 import os
 import re
 
+from .state import State
+
 
 class Manager(object):
-    ignored_files = (
-        re.compile(r'\.git'),
-    )
+    ignored_files = (re.compile(r"\.git"),)
 
     def __init__(self, source_dir, target_dir):
         self.source_dir = source_dir
@@ -18,7 +17,7 @@ class Manager(object):
         if os.path.isabs(source):
             source = os.path.relpath(source, self.source_dir)
 
-        return os.path.join(self.target_dir, '.{}'.format(source))
+        return os.path.join(self.target_dir, ".{}".format(source))
 
     def reverse(self, target):
         """Builds the path to the source from given a target location."""
@@ -26,7 +25,7 @@ class Manager(object):
         if os.path.isabs(target):
             target = os.path.relpath(target, self.target_dir)
 
-        if not target.startswith('.'):
+        if not target.startswith("."):
             raise Exception(
                 "This doesn't appear to be a dotfiles (its relative path from "
                 "the target directory doesn't start with a '.')."
@@ -36,10 +35,7 @@ class Manager(object):
 
     def should_ignore(self, path):
         """Decides whether a file/directory should be ignored by dot."""
-        return any([
-            regexp.search(path)
-            for regexp in self.ignored_files
-        ])
+        return any([regexp.search(path) for regexp in self.ignored_files])
 
     def walk(self, with_target=True):
         """Iterates over all (source file) -> (target link) mappings."""
@@ -88,10 +84,7 @@ class Manager(object):
     def snapshot(self):
         """Returns the state of the entire source directory."""
 
-        snapshot = {
-            state: set()
-            for state in State
-        }
+        snapshot = {state: set() for state in State}
 
         for source in self.walk(with_target=False):
             state = self.state(source)

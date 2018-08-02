@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-from dot.commands import add, deploy, status
-from dot.manager import Manager
 import argparse
 import os
+
+from dot.commands import add, deploy, status
+from dot.manager import Manager
 
 home = os.getenv('HOME')
 default_source = os.path.join(home, '.dotfiles')
