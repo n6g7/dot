@@ -1,0 +1,59 @@
+version: 2
+
+jobs:
+  backend:
+    working_directory: ~/dot
+
+    docker:
+      - image: python:3.7
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - v1-{{ .Branch }}
+            - v1-master-{{ checksum "Pipfile.lock" }}
+            - v1-master
+
+      - run:
+          name: Install pipenv
+          command: pip install pipenv black
+
+      - run:
+          name: Install python dependencies
+          working_directory: backend
+          command: pipenv install --dev --system
+
+      - run:
+          name: Check for security vulnerabilities
+          working_directory: backend
+          command: pipenv check
+
+      - run:
+          name: Check format
+          working_directory: backend
+          command: black --diff --check .
+
+      - run:
+          name: Check code style
+          working_directory: backend
+          command: flake8 .
+
+      - run:
+          name: Check imports order
+          working_directory: backend
+          command: isort --check-only --recursive --diff .
+
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ~/.cache/pip
+
+
+workflows:
+  version: 2
+  stack:
+    jobs:
+      - backend
