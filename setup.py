@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name="dotf",
-    version="0.0.2",
+    version="0.0.3",
     description="A dotfiles manager",
     author="Nathan Gaberel",
     author_email="nathan@gnab.fr",
