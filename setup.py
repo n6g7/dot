@@ -11,7 +11,7 @@ setup(
         "Environment :: Console",
         "Intended Audience :: System Administrators",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
     ],
     keywords="dotfiles manager dot",
     url="https://github.com/n6g7/dot",
