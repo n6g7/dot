@@ -1,5 +1,8 @@
 # dot
 
+![PyPI version](https://badgen.net/pypi/v/dotf)
+![CircleCI](https://badgen.net/circleci/github/n6g7/dot)
+
 A dotfiles manager.
 
 - Store your files in a single directory (`~/.dotfiles` by default) ;
