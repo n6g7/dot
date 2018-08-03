@@ -111,6 +111,10 @@ class Manager(object):
         # Find the associated source
         source = self.reverse(target)
 
+        # Create source file directory
+        dirpath = os.path.dirname(source)
+        os.makedirs(dirpath, exist_ok=True)
+
         # Move existing (target) file to source
         os.rename(target, source)
 
