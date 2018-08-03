@@ -6,32 +6,42 @@ from .state import State
 
 class Manager(object):
     ignored_files = (re.compile(r"\.git"),)
+    targets_map = {"Library": "Library"}
 
     def __init__(self, source_dir, target_dir):
         self.source_dir = source_dir
         self.target_dir = target_dir
 
+        # Reverse custom mapping for reverse calls
+        self.inverse_targets_map = {v: k for k, v in self.targets_map.items()}
+
     def target(self, source):
         """Builds the path to the target symlink for a given source file."""
 
+        # Work with relative path only
         if os.path.isabs(source):
             source = os.path.relpath(source, self.source_dir)
 
-        return os.path.join(self.target_dir, ".{}".format(source))
+        # Find the new "head" directory: either prepend dot or using custom mapping
+        [head, *tail] = source.split(os.sep)
+        new_head = self.targets_map.get(head, ".{}".format(head))
+
+        # Concat everything
+        return os.path.join(self.target_dir, new_head, *tail)
 
     def reverse(self, target):
-        """Builds the path to the source from given a target location."""
+        """Builds the path to the source from a target location."""
 
+        # Work with relative path only
         if os.path.isabs(target):
             target = os.path.relpath(target, self.target_dir)
 
-        if not target.startswith("."):
-            raise Exception(
-                "This doesn't appear to be a dotfiles (its relative path from "
-                "the target directory doesn't start with a '.')."
-            )
+        # Find the new "head" directory: either remove dot or use custom mapping
+        [head, *tail] = target.split(os.sep)
+        new_head = self.inverse_targets_map.get(head, head[1:])
 
-        return os.path.join(self.source_dir, target[1:])
+        # Concat everything
+        return os.path.join(self.source_dir, new_head, *tail)
 
     def should_ignore(self, path):
         """Decides whether a file/directory should be ignored by dot."""
